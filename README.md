@@ -12,6 +12,6 @@ After that, use command: turtlebot4-setup, navigate to the "Wi-Fi Setup" menu an
 3. Before using any ros2 command, enter this command first: source /opt/ros/humble/setup.bash
 
   
-Commands for measuring signal strength:
+Commands for measuring signal strength:  
 iwconfig wlan0  
 sudo iw dev wlan0 station dump

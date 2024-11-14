@@ -3,7 +3,8 @@ Software for 3D model of KTH R1: https://www.blender.org/
 Software for Ray tracer: MATLAB
 Other softwares of interest: Unity 3D, Nvidia Sionna
 
-##Tips for setup and connection:
+
+Tips for setup and connection:
 1. When the robot automatically connects the wifi, then just read the ip from the screen and SSH into the Raspberry Pi. Password: turtlebot4
 2. when the ip of the robot is unknown, connect directly to the Raspberry Pi using an ethernet cable(ssh ubuntu@192.168.185.3). Don't forget to configure the wired connection to use the same subnet: 
 ![image](https://github.com/user-attachments/assets/7cea9ef2-949e-4f1b-80ea-e887f8688b62)

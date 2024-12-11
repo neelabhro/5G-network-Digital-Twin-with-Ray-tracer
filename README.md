@@ -33,6 +33,6 @@ ros2 launch turtlebot4_navigation slam_sync.launch.py
 
 ros2 launch turtlebot4_navigation slam_async.launch.py
 
-3. Rviz2 (visualize the map):
+2. Rviz2 (visualize the map):
 
 ros2 launch turtlebot4_viz view_robot.launch.py

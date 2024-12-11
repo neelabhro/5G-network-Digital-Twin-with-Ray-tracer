@@ -14,6 +14,7 @@ After that, use command: turtlebot4-setup, navigate to the "Wi-Fi Setup" menu an
   
 Packages for signal strength:
 sudo apt install net-tools
+
 sudo apt install iw
 
 Commands for measuring signal strength:  
@@ -21,10 +22,10 @@ iwconfig wlan0
 sudo iw dev wlan0 station dump
 
 Navigation Part:
--SLAM (create the map)
+1. SLAM (create the map)
 sudo apt install ros-humble-turtlebot4-navigation
 ros2 launch turtlebot4_navigation slam_sync.launch.py
 ros2 launch turtlebot4_navigation slam_async.launch.py
 
--Rviz2 (visualize the map)
+2. Rviz2 (visualize the map)
 ros2 launch turtlebot4_viz view_robot.launch.py

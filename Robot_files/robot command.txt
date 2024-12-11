@@ -1,0 +1,115 @@
+Connect WIFIS：
+nmcli connection show
+nmcli connection delete <network_name>
+# if cannot connected to the wifi agian, then just delete it first and then re-connect.
+# run it on the robot side
+
+
+
+Robot Moving:
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 0.1}}"
+ros2 action info /drive_distance
+
+Disable firewall:
+sudo ufw disable
+
+Network Time Protocol:
+sudo apt install ntp
+sudo service ntp restart
+
+WSL:
+wsl
+wsl --shutdown
+
+Source:
+source /opt/ros/humble/setup.bash   ---------- Source your workspacesROS2 installation setup file-every windows
+source /etc/turtlebot4/setup.bash
+source ~/.bashrc                               ---------- apply the settings to your current terminal
+
+Check Robot and PC Setting:
+echo $ROS_DOMAIN_ID
+echo $RMW_IMPLEMENTATION
+
+Check Communication:
+ros2 topic list
+# do the command on both Robot and PC to see if they are the same
+
+
+Rviz:
+sudo apt install ros-humble-turtlebot4-viz
+ros2 launch turtlebot4_viz view_robot.launch.py
+
+SLAM:
+sudo apt install ros-humble-turtlebot4-navigation
+ros2 launch turtlebot4_navigation slam.launch.py
+
+Twist Keyboard---control robot move:
+source /opt/ros/humble/setup.bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+Save Map:
+ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'map_name'}}"
+
+Check Map:
+sudo apt  install eog
+eog map_name.pgm
+
+Navigation:
+ros2 launch turtlebot4_navigation localization.launch.py map:=map_name.yaml
+ros2 launch turtlebot4_navigation nav2.launch.py
+ros2 launch turtlebot4_viz view_robot.launch.py
+ros2 launch nav2_bringup navigation_launch.py
+
+ros2 launch turtlebot4_navigation nav_bringup.launch.py slam:=off localization:=true map:=map.yaml
+ros2 launch turtlebot4_navigation nav_bringup.launch.py
+
+
+export LIBGL_ALWAYS_SOFTWARE=1  --------------------------- Set software rendering
+
+
+
+
+
+
+linux查看WIFI信号强弱：
+
+$ iwconfig wlan0 | grep -i --color quality   //查询网络连接质量着红色
+          Link Quality=47/70  Signal level=-63 dBm
+
+$ iwconfig wlan0 | grep -i --color signal    //查询信号强度着红色
+
+         Link Quality=44/70  Signal level=-66 dBm
+
+$ iwconfig wlan0
+wlan0     IEEE 802.11bgn  ESSID:"HT-YW-412B"  
+          Mode:Managed  Frequency:2.467 GHz  Access Point: 48:7A:DA:22:5F:BB   
+          Bit Rate=40.5 Mb/s   Tx-Power=16 dBm   
+          Retry  long limit:7   RTS thr:off   Fragment thr:off
+          Power Management:off
+          Link Quality=39/70  Signal level=-71 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:5234  Invalid misc:14726   Missed beacon:0
+$ iwlist wlan0 scan
+
+# iw dev wlan0 scan
+
+
+
+
+sudo iw dev wlan0 station dump
+
+{  while [ true ]; 
+do iw dev wlp3s0  scan | grep -A 20  "9c:a6:15:eb:bf:b9"| grep "signal" | tee -a /home/ubuntu/signal-log; 
+sleep 5; 
+done &  
+timeout 600 ./wifi-signal-test.sh }  
+
+chmod +x wifi-signal-test.sh          ------------赋予脚本执行权限
+sudo ./wifi-signal-test.sh                ------------ 运行
+cat signal-log.txt                            ------------ 查看
+ps aux | grep wifi-signal-test.sh      ------------ 查看PID
+ubuntu@ubuntu:~$ ps aux | grep wifi-signal-test.sh
+root       42059  0.0  0.0   7268  1872 ?        S    15:44   0:00 /bin/bash ./wifi-signal-test.sh
+ubuntu     43405  0.0  0.0   6428  1828 pts/1    S+   15:46   0:00 grep --color=auto wifi-signal-test.sh
+
+ sudo kill 42059                             ------------ 终止后台程序
